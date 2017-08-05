@@ -1,6 +1,11 @@
 #include <baseapi.h>
 #include <allheaders.h>
 
+#include <cstdlib>
+#include <iostream>
+
+using namespace std;
+
 int main()
 {
 	char *outText;
