@@ -18,9 +18,18 @@
     <ClCompile Include="redEyeRemover.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="textdetection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\..\..\..\..\Downloads\RedEyeRemover\RedEyeRemover\haarcascade_eye.xml">
+      <Filter>Source Files</Filter>
+    </Xml>
+    <Xml Include="trained_classifierNM1.xml">
+      <Filter>Source Files</Filter>
+    </Xml>
+    <Xml Include="trained_classifierNM2.xml">
       <Filter>Source Files</Filter>
     </Xml>
   </ItemGroup>
