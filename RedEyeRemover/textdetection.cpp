@@ -8,9 +8,9 @@
 *     Author: Lluis Gomez i Bigorda <lgomez AT cvc.uab.es>
 */
 
-#include  "opencv2/text.hpp"
-#include  "opencv2/highgui.hpp"
-#include  "opencv2/imgproc.hpp"
+#include  "text.hpp"
+#include  "highgui.hpp"
+#include  "imgproc.hpp"
 
 #include  <vector>
 #include  <iostream>
@@ -24,15 +24,25 @@ void show_help_and_exit(const char *cmd);
 void groups_draw(Mat &src, vector<Rect> &groups);
 void er_show(vector<Mat> &channels, vector<vector<ERStat> > &regions);
 
+void PrintFullPath(char * partialPath)
+{
+	char full[_MAX_PATH];
+	if (_fullpath(full, partialPath, _MAX_PATH) != NULL)
+		printf("Full path is: %s\n", full);
+	else
+		printf("Invalid path\n");
+}
 int main(int argc, const char * argv[])
 {
 	cout << endl << argv[0] << endl << endl;
 	cout << "Demo program of the Extremal Region Filter algorithm described in " << endl;
 	cout << "Neumann L., Matas J.: Real-Time Scene Text Localization and Recognition, CVPR 2012" << endl << endl;
 
-	if (argc < 2) show_help_and_exit(argv[0]);
+	// Get current directory
+	//PrintFullPath(".\\");
+	//if (argc < 2) show_help_and_exit(argv[0]);
 
-	Mat src = imread("scenetext_word02.jpg",0);
+	Mat src = imread("scenetext01.jpg");
 
 	// Extract channels to be processed individually
 	vector<Mat> channels;
@@ -44,8 +54,8 @@ int main(int argc, const char * argv[])
 		channels.push_back(255 - channels[c]);
 
 	// Create ERFilter objects with the 1st and 2nd stage default classifiers
-	Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1("C:/Projects/RedEyeRemover/RedEyeRemover/trained_classifierNM1.xml"), 16, 0.00015f, 0.13f, 0.2f, true, 0.1f);
-	Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2("C:/Projects/RedEyeRemover/RedEyeRemover/trained_classifierNM2.xml"), 0.5);
+	Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1("trained_classifierNM1.xml"), 16, 0.00015f, 0.13f, 0.2f, true, 0.1f);
+	Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2("trained_classifierNM2.xml"), 0.5);
 
 	vector<vector<ERStat> > regions(channels.size());
 	// Apply the default cascade classifier to each independent channel (could be done in parallel)
